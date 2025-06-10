@@ -1,1 +1,49 @@
+1470. Shuffle the Array
 
+class Solution {
+    public int[] shuffle(int[] nums, int n) {
+       
+        int arr[]=new int[2*n];
+
+        for(int i=0;i<n;i++){
+            arr[2*i]=nums[i];
+            arr[2*i+1]=nums[i+n];
+        }
+        return arr;
+    }
+}
+
+1512. Number of Good Pairs
+
+class Solution {
+    public int numIdenticalPairs(int[] nums) {
+        int n=nums.length;
+        int count=0;
+        for (int i=0;i<n;i++){
+            for(int j=i+1;j<n;j++){
+                if(nums[i]==nums[j] ){
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+}
+
+1431. Kids With the Greatest Number of Candies
+
+class Solution {
+    public List<Boolean> kidsWithCandies(int[] candies, int extraCandies) {
+        int greatest=0;
+        List<Boolean> result=new ArrayList<>();
+        for(int candy:candies ){
+            if(candy > greatest){
+                greatest=candy;
+            }
+        }
+        for(int candy:candies){
+            result.add(candy+extraCandies >=greatest);
+        }
+        return result;
+    }
+}
