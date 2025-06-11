@@ -1,0 +1,50 @@
+217. Contains Duplicate
+
+class Solution {
+    public boolean containsDuplicate(int[] nums) {
+        int n =nums.length;
+        Arrays.sort(nums);
+        for(int i=0;i<n-1;i++){
+            if(nums[i]==nums[i+1]){
+                return true;
+            }
+           
+        }
+        return false;
+    }
+}
+
+977. Squares of a Sorted Array
+
+class Solution {
+    public int[] sortedSquares(int[] nums) 
+    {
+        int n =nums.length;
+        int[] arr=new int[n];
+
+        for(int i =0;i<n;i++){
+            arr[i]=nums[i]*nums[i];
+        }
+        Arrays.sort(arr);
+        return arr;
+        
+    }
+}
+
+283. Move Zeroes
+
+class Solution {
+    public void moveZeroes(int[] nums) {
+        
+        int insert=0;
+
+        for(int num:nums){
+            if(num != 0){
+                nums[insert++]=num;
+            }
+        }
+        while(insert <nums.length){
+            nums[insert++]=0;
+        }
+    }
+}
