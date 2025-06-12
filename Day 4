@@ -1,0 +1,57 @@
+136. Single Number
+
+class Solution {
+    public void reverseString(char[] s) {
+        int left = 0;
+        int right = s.length - 1;
+        while (left < right) {
+            char temp = s[right];
+            s[right] = s[left];
+            s[left] = temp;
+
+            left++;
+            right--;
+
+        }
+    }
+}
+
+88. Merge Sorted Array
+
+class Solution {
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        int i=m-1;
+        int j=n-1;
+        int k=m+n-1;
+
+        while(i>=0 && j>=0){
+            if(nums1[i]>nums2[j]){
+                nums1[k--]=nums1[i--];
+            }
+            else{
+                nums1[k--]=nums2[j--];
+            }
+        }
+        while(j>=0){
+            nums1[k--]=nums2[j--];
+        }
+    }
+}
+
+344. Reverse String
+
+class Solution {
+    public void reverseString(char[] s) {
+        int left = 0;
+        int right = s.length - 1;
+        while (left < right) {
+            char temp = s[right];
+            s[right] = s[left];
+            s[left] = temp;
+
+            left++;
+            right--;
+
+        }
+    }
+}
