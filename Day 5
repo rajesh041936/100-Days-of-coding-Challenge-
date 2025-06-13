@@ -1,0 +1,56 @@
+121. Best Time to Buy and Sell Stock
+
+class Solution {
+    public int maxProfit(int[] prices) {
+        int min =Integer.MAX_VALUE;
+        int max=0;
+
+        for(int price:prices){
+            if(price<min){
+                min=price;
+            }
+            else{
+                int profit=price-min;
+                max=Math.max(profit,max);
+            }
+        }
+        return max;
+    }
+}
+
+169. Majority Element
+
+class Solution {
+    public int majorityElement(int[] nums) 
+    {
+        int count=0;
+        int digit=0;
+
+        for(int num :nums){
+            if(count ==0){
+                digit =num;
+            }
+            count +=(num == digit) ? 1:-1;
+        }
+        return digit;
+    }
+}
+
+66. Plus One
+
+class Solution {
+    public int[] plusOne(int[] digits) {
+        int n =digits.length;
+
+        for(int i=n-1;i>=0;i--){
+            if(digits[i]<9){
+                digits[i]++;
+                return digits;
+            }
+            digits[i]=0;
+        }
+        int[] arr=new int[n+1];
+        arr[0]=1;
+        return arr;
+    }
+}
