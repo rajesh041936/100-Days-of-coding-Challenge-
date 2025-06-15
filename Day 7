@@ -1,0 +1,62 @@
+744. Find Smallest Letter Greater Than Target
+
+class Solution {
+    public char nextGreatestLetter(char[] letters, char target)
+    {
+        for(char ch:letters){
+            if(ch > target){
+                return ch;
+            }
+        }
+        return letters[0];
+        
+    }
+}
+
+771. Jewels and Stones
+
+class Solution {
+    public int numJewelsInStones(String jewels, String stones) 
+    {
+        int count =0;
+        for(char i=0;i<stones.length();i++)
+        {
+            for(char j=0;j<jewels.length();j++){
+                if(stones.charAt(i)==jewels.charAt(j)){
+                    count ++;
+                }
+            }
+
+        }
+        return count;
+        
+    }
+}
+
+2215. Find the Difference of Two Arrays
+
+class Solution {
+    public List<List<Integer>> findDifference(int[] nums1, int[] nums2) {
+        Set<Integer> one = new HashSet<>();
+        Set<Integer> two = new HashSet<>();
+
+        for(int num:nums1)
+        one.add(num);
+        for(int num:nums2)
+        two.add(num);
+
+        Set<Integer> only1 = new HashSet<>(one);
+        Set<Integer> only2 = new HashSet<>(two);
+
+        only1.removeAll(two);
+        only2.removeAll(one);
+
+        List<List<Integer>> result = new ArrayList<>();
+        result.add(new ArrayList<>(only1));
+        result.add(new ArrayList<>(only2));
+
+        return result;
+
+
+    }
+}
