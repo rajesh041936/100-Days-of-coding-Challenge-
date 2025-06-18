@@ -1,0 +1,109 @@
+374. Guess Number Higher or Lower
+
+/** 
+ * Forward declaration of guess API.
+ * @param  num   your guess
+ * @return 	     -1 if num is higher than the picked number
+ *			      1 if num is lower than the picked number
+ *               otherwise return 0
+ * int guess(int num);
+ */
+
+public class Solution extends GuessGame {
+    public int guessNumber(int n) {
+        int low =0;
+        int high =n;
+
+        while(low <= high){
+            int mid=low+(high -low)/2;
+
+            int result = guess(mid);
+
+            if(result==0){
+                return mid;
+            }
+            else if(result<0){
+                high=mid-1;
+            }
+            else{
+                low=mid+1;
+            }
+        }
+        return -1;
+    }
+}
+
+69. Sqrt(x)
+
+class Solution {
+    public int mySqrt(int x) {
+        int low =1;
+        int high =x/2;
+        int ans =0;
+
+        if(x<2){
+            return x;
+        }
+
+        while(low <=high){
+            int mid =low+(high - low)/2;
+
+            long square=(long) mid*mid;
+
+            if(square ==x){
+                return mid;
+            }
+            else if(square < x){
+                ans =mid;
+                low =mid+1;
+            }
+            else{
+                high =mid-1;
+            }
+        }
+        return ans;
+    }
+}
+
+410. Split Array Largest Sum
+
+class Solution {
+    public int splitArray(int[] nums, int k) 
+    {
+        int low =0;
+        int high =0;
+
+        for(int num :nums){
+            low= Math.max(low,num);
+            high += num;
+        }
+
+        while(low< high){
+            int mid = low+(high -low)/2;
+            if(cansplit(nums,k,mid)){
+                high = mid;
+            }
+            else{
+                low = mid+1;
+            }
+        }
+        return low;
+    }
+        private boolean cansplit(int[] nums,int k,int maxsum){
+            int count =1;
+            int currentsum =0;
+
+            for(int num : nums){
+                if(currentsum + num >maxsum){
+                    count++;
+                    currentsum=num;
+                    if(count > k) return false;
+                }
+                else{
+                    currentsum += num;
+                }
+            }
+            return true;
+        }
+        
+}
