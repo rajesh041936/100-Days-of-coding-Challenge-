@@ -1,0 +1,86 @@
+414. Third Maximum Number
+
+class Solution {
+    public int thirdMax(int[] nums) {
+        Long first = null, second = null, third = null;
+
+        for (int num : nums) {
+            long n = (long) num;
+
+            if ((first != null && n == first) || 
+                (second != null && n == second) || 
+                (third != null && n == third)) {
+                continue;
+            }
+
+            if (first == null || n > first) {
+                third = second;
+                second = first;
+                first = n;
+            } else if (second == null || n > second) {
+                third = second;
+                second = n;
+            } else if (third == null || n > third) {
+                third = n;
+            }
+        }
+
+        return third == null ? first.intValue() : third.intValue();
+    }
+}
+
+1356. Sort Integers by The Number of 1 Bits
+
+class Solution {
+    public int[] sortByBits(int[] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] += Integer.bitCount(arr[i]) * 10001;
+        }
+
+        Arrays.sort(arr);
+
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = arr[i] % 10001;
+        }
+
+        return arr;
+    }
+}
+
+
+75. Sort Colors
+
+class Solution {
+    public void sortColors(int[] nums)
+    {
+
+     int low = 0,mid=0,high = nums.length-1;
+
+     while(mid <= high){
+        if(nums[mid]==0){
+            int temp = nums[low];
+            nums[low]=nums[mid];
+            nums[mid]=temp;
+            low++;
+            mid++;
+        }
+        else if(nums[mid]==1){
+            mid++;
+        }
+        else{
+            int temp = nums[mid];
+            nums[mid]= nums[high];
+            nums[high]=temp;
+            high--;
+        }
+     } 
+        
+    }
+      public static void main(String[] args){
+            Solution sol = new Solution();
+            int[] nums= {2,0,2,1,1,0};
+            sol.sortColors(nums);
+
+            System.out.println(Arrays.toString(nums));
+        }
+}
