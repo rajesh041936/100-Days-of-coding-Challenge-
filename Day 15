@@ -1,0 +1,71 @@
+268. Missing Number
+
+class Solution {
+    public int missingNumber(int[] nums) 
+    {
+        int n = nums.length;
+        int totalsum = n*(n+1)/2;
+        int cursum = 0;
+
+        for(int num : nums){
+            cursum += num;
+        }
+        return totalsum - cursum;
+        
+    }
+}
+
+349. Intersection of Two Arrays
+
+class Solution {
+    public int[] intersection(int[] nums1, int[] nums2) {
+        
+        Set<Integer> set1 = new HashSet<>();
+        Set<Integer> result = new HashSet<>();
+
+        for(int num : nums1){
+            set1.add(num);
+        }
+
+        for(int num : nums2){
+            if(set1.contains(num)){
+                result.add(num);
+            }
+        }
+
+        int[] output = new int[result.size()];
+        int i =0;
+        for(int num : result){
+            output[i]=num;
+            i++;
+        }
+        return output;
+    }
+}
+
+147. Insertion Sort List
+
+class Solution {
+    public ListNode insertionSortList(ListNode head) {
+        if (head == null || head.next == null) return head;
+
+        ListNode dummy = new ListNode(0); 
+        ListNode curr = head;
+
+        while (curr != null) {
+            ListNode prev = dummy;         
+            ListNode next = curr.next;     
+
+            while (prev.next != null && prev.next.val < curr.val) {
+                prev = prev.next;
+            }
+
+            curr.next = prev.next;
+            prev.next = curr;
+
+            curr = next;
+        }
+
+        return dummy.next;
+    }
+}
