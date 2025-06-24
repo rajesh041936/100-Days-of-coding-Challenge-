@@ -1,0 +1,96 @@
+41. First Missing Positive
+
+class Solution {
+    public int firstMissingPositive(int[] nums) 
+    {
+        int n = nums.length;
+         int i =0;
+        while(i < n){
+            int y = nums[i]-1;
+            if(nums[i] >0 && nums[i] <= n && nums[i] !=nums[y]){
+                swap( nums,i,y);
+            }
+            else{
+                i++;
+            }
+        }
+        for(int j=0;j<n;j++){
+            if(nums[j] != j+1){
+                return j+1;
+            }
+        }
+        return n+1;
+    }
+     private void swap(int[] arr,int first,int second){
+        int temp=0;
+        temp=arr[first];
+        arr[first]=arr[second];
+        arr[second]=temp;
+        
+    }
+}
+
+287. Find the Duplicate Number
+
+
+class Solution {
+    public int findDuplicate(int[] nums) 
+    {
+          int i =0;  
+        while (i < nums.length) {
+            if (nums[i] != i + 1) {
+                int correctIndex = nums[i] - 1;
+                if (nums[i] != nums[correctIndex]) {
+                    swap(nums, i, correctIndex);
+                } else {
+                    return nums[i];
+                }
+            } else {
+                i++;
+            }
+        }
+        return -1; 
+    }
+
+     private void swap(int[] arr,int first,int second){
+        int temp=0;
+        temp=arr[first];
+        arr[first]=arr[second];
+        arr[second]=temp;
+        
+    }
+}
+
+442. Find All Duplicates in an Array
+
+class Solution {
+    public List<Integer> findDuplicates(int[] nums) {
+        
+     int i =0;
+        while(i < nums.length){
+            int y = nums[i]-1;
+            if(nums[i] !=nums[y]){
+                swap( nums,i,y);
+            }
+            else{
+                i++;
+            }
+        }
+        List<Integer> result = new ArrayList<>();
+        for(int j=0;j<nums.length;j++){
+            if(nums[j] != j+1 ){
+                result.add(nums[j]);
+            }
+        }
+        return result;
+        
+    }
+    private void swap(int[] arr,int first,int second){
+        int temp=0;
+        temp=arr[first];
+        arr[first]=arr[second];
+        arr[second]=temp;
+        
+    }
+    
+}
