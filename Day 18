@@ -1,0 +1,53 @@
+1108. Defanging an IP Address
+
+class Solution {
+    public String defangIPaddr(String address) 
+    {
+        StringBuilder str = new StringBuilder();
+        for(int i=0;i<address.length();i++){
+            if(address.charAt(i) == '.'){
+            str.append("[.]");
+
+            }
+            else{
+                str.append(address.charAt(i));
+                
+            }
+        }
+        return str.toString();
+        
+    }
+}
+
+1528. Shuffle String
+
+class Solution {
+    public String restoreString(String s, int[] indices) {
+        char[] ans = new char[s.length()];
+
+        for(int i =0;i<indices.length;i++){
+            ans[indices[i]]=s.charAt(i);
+        }
+        return new String(ans);
+    }
+}
+
+1678. Goal Parser Interpretation
+
+class Solution {
+    public String interpret(String command) {
+        StringBuilder ans = new StringBuilder();
+        for (int i = 0; i < command.length(); i++) {
+            if (command.charAt(i) == 'G') {
+                ans.append("G");
+            } else if (command.charAt(i) == '(' && command.charAt(i + 1) == ')') {
+                ans.append("o");
+                i++;
+            } else if (command.charAt(i) == '(' && command.charAt(i + 1) == 'a') {
+                ans.append("al");
+                i += 3;
+            }
+        }
+        return ans.toString();
+    }
+}
