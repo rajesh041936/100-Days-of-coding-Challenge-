@@ -1,0 +1,66 @@
+1859. Sorting the Sentence
+
+class Solution {
+    public String sortSentence(String s) 
+    {
+        String[] words = s.split(" ");
+        String[] ans = new String[words.length];
+
+        for(String word : words){
+            int len = word.length();
+            int pos = word.charAt(len-1) - '1';
+            ans[pos] = word.substring(0,len-1);
+        }
+        return String.join(" ",ans);
+    }
+}
+
+1704. Determine if String Halves Are Alike
+
+class Solution {
+    public boolean halvesAreAlike(String s) 
+    {
+        int n = s.length();
+        int count =0;
+        String vowels = "aeiouAEIOU";
+
+        for(int i=0;i<n/2;i++){
+            if(vowels.indexOf(s.charAt(i)) != -1){
+            count++;
+            }
+        }  
+        for(int i=n/2;i<n;i++){
+            if(vowels.indexOf(s.charAt(i)) != -1){
+                count--; 
+            }
+            
+        }        
+        return count ==0;
+    }
+}
+
+1309. Decrypt String from Alphabet to Integer Mapping
+
+class Solution {
+    public String freqAlphabets(String s) 
+    {
+        int n = s.length();
+
+        StringBuilder ans = new StringBuilder();
+        int i =0;
+
+        while(i<n){
+            if(i+2<n && s.charAt(i+2) == '#'){
+                int num = Integer.parseInt(s.substring(i,i+2));
+                ans.append((char) ('a'+num-1));
+                i+=3;
+            }
+            else{
+                int num =s.charAt(i) - '0';
+                ans.append((char) ('a'+num-1));
+                i++;
+            }
+        }
+     return ans.toString();   
+    }
+}
