@@ -1,0 +1,75 @@
+680. Valid Palindrome II
+
+class Solution {
+    public boolean validPalindrome(String s) 
+    {
+        int left =0,right=s.length()-1;
+        while(left<right){
+            if(s.charAt(left) != s.charAt(right)){
+                return ispalindrome(s, left+1,right)  || ispalindrome(s,left,right-1);
+            }
+            left++;
+            right--;
+        }
+        return true; 
+    }
+    private boolean ispalindrome(String s,int left,int right){
+        while(left < right){
+            if(s.charAt(left) != s.charAt(right)) return false;
+            left++;
+            right--;
+        }
+        return true;
+    }
+}
+
+925. Long Pressed Name
+
+class Solution {
+    public boolean isLongPressedName(String name, String typed) 
+    {
+        int i=0,j=0;
+
+        while(j<typed.length()){
+            if(i < name.length() && name.charAt(i)==typed.charAt(j)){
+            i++;
+            j++;
+        }
+        else if(j>0 && typed.charAt(j) == typed.charAt(j-1)){
+            j++;
+        }
+        else{
+            return false;
+        }
+
+    }
+        return i==name.length();
+    }
+}
+
+125. Valid Palindrome
+
+class Solution {
+    public boolean isPalindrome(String s) 
+    {
+        StringBuilder line = new StringBuilder();
+
+        for(char c : s.toCharArray()){
+            if(Character.isLetterOrDigit(c)){
+                line.append(Character.toLowerCase(c));
+            }
+        }
+
+        int left =0,right=line.length()-1;
+
+        while(left < right){
+            if(line.charAt(left) != line.charAt(right)){
+                return false;
+            }
+            left++;
+            right--;
+        }
+        return true;
+        
+    }
+}
