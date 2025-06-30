@@ -1,0 +1,67 @@
+14. Longest Common Prefix
+
+class Solution {
+    public String longestCommonPrefix(String[] strs) {
+        if (strs == null || strs.length == 0) return "";
+                
+        String prefix = strs[0];
+        for(int i =0;i<strs.length;i++){
+            while(!strs[i].startsWith(prefix)){
+                prefix = prefix.substring(0,prefix.length()-1);
+                        if(prefix == null) return "";
+
+            }
+        }
+        return prefix;
+        
+    }
+}
+
+1668. Maximum Repeating Substring
+
+class Solution {
+    public int maxRepeating(String sequence, String word) 
+    {
+
+        StringBuilder sb = new StringBuilder();
+        int count=0;
+        while(true){
+            sb.append(word);
+            if(sequence.contains(sb.toString())){
+                count++;
+            }
+            else{
+                break;
+            }
+        }
+        return count;
+        
+    }
+}
+
+1768. Merge Strings Alternately
+
+class Solution {
+    public String mergeAlternately(String word1, String word2) 
+    {
+        StringBuilder sb = new StringBuilder();
+        int i=0,j=0;
+
+        while(i<word1.length() && j<word2.length()){
+            sb.append(word1.charAt(i));
+            sb.append(word2.charAt(j));
+            i++;
+            j++;
+        }
+
+        while(i<word1.length()){
+            sb.append(word1.charAt(i));
+            i++;
+        }
+        while(j<word2.length()){
+            sb.append(word2.charAt(j));
+            j++;
+        }
+        return sb.toString();
+    }
+}
