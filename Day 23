@@ -1,0 +1,57 @@
+2000. Reverse Prefix of Word
+
+class Solution {
+    public String reversePrefix(String word, char ch) 
+    {
+        int index = word.indexOf(ch);
+        if(index == -1) return word;
+
+        StringBuilder ans = new StringBuilder();
+
+        ans.append(word.substring(0,index+1));
+
+        ans.reverse();
+
+        ans.append(word.substring(index+1));
+
+        return ans.toString(); 
+        
+    }
+}
+
+20. Valid Parentheses
+
+class Solution {
+    public boolean isValid(String s) {
+        Stack<Character> stack = new Stack<>();
+
+        for (char c : s.toCharArray()) {
+            if (c == '(' || c == '{' || c == '[') {
+                stack.push(c);
+            } 
+            else {
+                if (stack.isEmpty()) return false;
+                char top = stack.pop();
+                if ((c == ')' && top != '(') ||
+                    (c == '}' && top != '{') ||
+                    (c == ']' && top != '[')) {
+                    return false;
+                }
+            }
+        }
+
+        return stack.isEmpty();
+    }
+}
+
+58. Length of Last Word
+
+class Solution {
+    public int lengthOfLastWord(String s) 
+    {
+     String[] words = s.trim().split(" "); 
+        String lastWord = words[words.length - 1];
+        return lastWord.length();
+        
+    }
+}
