@@ -1,0 +1,60 @@
+728. Self Dividing Numbers
+
+class Solution {
+    public List<Integer> selfDividingNumbers(int left, int right) 
+    {
+        List<Integer> ans = new ArrayList<>();
+
+        for(int num=left;num<=right;num++){
+            if(selfdividing(num)){
+                ans.add(num);
+            }
+        }
+        return ans;      
+    }
+    static boolean selfdividing(int num){
+        
+        int original = num;
+        while(num >0){
+            int lastdigit = num%10;
+
+            if(lastdigit==0 || original%lastdigit !=0){
+                return false;
+            }
+            num = num/10;
+        }
+        return true;
+    }
+}
+
+70. Climbing Stairs
+
+class Solution {
+    public int climbStairs(int n) {
+        if(n<=2) return n;
+
+        int stepcount =0;
+        int onestepbefore =2;
+        int twostepbefore =1;
+        for(int i=3;i<=n;i++){
+            stepcount=onestepbefore+twostepbefore;
+            twostepbefore=onestepbefore;
+            onestepbefore=stepcount;
+        }
+        return stepcount;
+    }
+}
+
+231. Power of Two
+
+class Solution {
+    public boolean isPowerOfTwo(int n) {
+        if (n <= 0) return false;
+
+        while (n % 2 == 0) {
+            n /= 2;
+        }
+
+        return n == 1;
+    }
+}
