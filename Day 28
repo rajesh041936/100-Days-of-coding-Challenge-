@@ -1,0 +1,56 @@
+12. Integer to Roman
+
+class Solution {
+    public String intToRoman(int num) {
+        
+         int[] values =    {1000, 900, 500, 400, 100, 90,  50,  40, 10,  9,   5,  4,   1};
+        String[] symbols ={"M",  "CM","D", "CD","C", "XC","L", "XL","X", "IX","V","IV","I"};
+        StringBuilder ans =new StringBuilder();
+
+        for(int i=0;i<values.length && num >0;i++){
+            while(num >= values[i]){
+                ans.append(symbols[i]);
+                num-=values[i];               
+            }
+        }
+        return ans.toString();
+        
+    }
+}
+
+62. Unique Paths
+
+class Solution {
+    public int uniquePaths(int m, int n) {
+        int[][] dp = new int[m][n];
+
+        for (int i = 0; i < m; i++) {
+            dp[i][0] = 1;
+        }
+        for (int j = 0; j < n; j++) {
+            dp[0][j] = 1;
+        }
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+            }
+        }
+        return dp[m - 1][n - 1];
+    }
+}
+
+
+89. Gray Code
+
+class Solution {
+    public List<Integer> grayCode(int n) {
+        List<Integer> result = new ArrayList<>();
+        int totalNumbers = 1 << n;  
+
+        for (int i = 0; i < totalNumbers; i++) {
+            result.add(i ^ (i >> 1));
+        }
+
+        return result;
+    }
+}
