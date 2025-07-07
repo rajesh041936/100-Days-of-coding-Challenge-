@@ -1,0 +1,66 @@
+1344. Angle Between Hands of a Clock
+
+class Solution {
+    public double angleClock(int hour, int minutes) {
+        float h = (hour % 12 + (float)minutes / 60) * 30;
+        float m = minutes * 6;
+        float angle = Math.abs(h - m);
+
+        if (angle > 180) angle = 360 - angle;
+        return angle;
+    }
+}
+
+
+279. Perfect Squares
+
+class Solution {
+    public int numSquares(int n) {
+        int[] dp = new int[n + 1];
+        dp[0] = 0;
+        for (int i = 1; i <= n; i++) {
+            dp[i] = i;
+            for (int j = 1; j * j <= i; j++) {
+                dp[i] = Math.min(dp[i], 1 + dp[i - j * j]);
+            }
+        }
+        return dp[n];
+    }
+}
+
+
+556. Next Greater Element III
+
+class Solution {
+    public int nextGreaterElement(int n) {
+        char[] digits = Integer.toString(n).toCharArray();
+
+        int i = digits.length - 2;
+        while (i >= 0 && digits[i] >= digits[i + 1]) {
+            i--;
+        }
+        if (i == -1) return -1; 
+        
+        int j = digits.length - 1;
+        while (digits[j] <= digits[i]) {
+            j--;
+        }
+
+        swap(digits, i, j);
+        reverse(digits, i + 1, digits.length - 1);
+
+        long val = Long.parseLong(new String(digits));
+        return (val > Integer.MAX_VALUE) ? -1 : (int) val;
+    }
+
+    private void swap(char[] arr, int i, int j) {
+        char tmp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = tmp;
+    }
+    private void reverse(char[] arr, int left, int right) {
+        while (left < right) {
+            swap(arr, left++, right--);
+        }
+    }
+}
