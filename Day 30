@@ -1,0 +1,64 @@
+1492. The kth Factor of n
+
+class Solution {
+    public int kthFactor(int n, int k) {
+        for (int i = 1; i <= n; i++) {
+            if (n % i == 0) {
+                k--;
+                if (k == 0) return i;
+            }
+        }
+        return -1;
+    }
+}
+
+
+1828. Queries on Number of Points Inside a Circle
+
+class Solution {
+    public int[] countPoints(int[][] points, int[][] queries) {
+        int[] result = new int[queries.length];
+        for (int i = 0; i < queries.length; i++) {
+            int cx = queries[i][0], cy = queries[i][1], r = queries[i][2];
+            int r2 = r * r, count = 0;
+            for (int[] p : points) {
+                int dx = p[0] - cx, dy = p[1] - cy;
+                if (dx * dx + dy * dy <= r2) count++;
+            }
+            result[i] = count;
+        }
+        return result;
+    }
+}
+
+
+8. String to Integer (atoi)
+
+
+class Solution {
+    public int myAtoi(String s) {
+        int i = 0, n = s.length();
+        while (i < n && s.charAt(i) == ' ') {
+            i++;
+        }
+
+        int sign = 1;
+        if (i < n && (s.charAt(i) == '+' || s.charAt(i) == '-')) {
+            if (s.charAt(i) == '-') sign = -1;
+            i++;
+        }
+
+        long result = 0;
+        while (i < n && Character.isDigit(s.charAt(i))) {
+            int digit = s.charAt(i) - '0';
+            result = result * 10 + digit;
+
+            if (sign == 1 && result > Integer.MAX_VALUE) return Integer.MAX_VALUE;
+            if (sign == -1 && -result < Integer.MIN_VALUE) return Integer.MIN_VALUE;
+
+            i++;
+        }
+
+        return (int) (sign * result);
+    }
+}
