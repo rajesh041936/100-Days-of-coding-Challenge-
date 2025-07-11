@@ -1,0 +1,70 @@
+1486. XOR Operation in an Array
+
+class Solution {
+    public int xorOperation(int n, int start) {
+        int xor = 0;
+        for (int i = 0; i < n; i++) {
+            int num = start + 2 * i;
+            xor ^= num;
+        }
+        return xor;
+    }
+}
+
+
+78. Subsets
+
+import java.util.*;
+
+class Solution {
+  private List<List<Integer>> ans = new ArrayList<>();
+  private List<Integer> currSet = new ArrayList<>();
+
+  public List<List<Integer>> subsets(int[] nums) {
+    dfs(0, nums);
+    return this.ans;
+  }
+
+  private void dfs(int idx, int[] nums) {
+    if (idx == nums.length) {
+      ans.add(new ArrayList<>(currSet));
+      return;
+    }
+
+    currSet.add(nums[idx]);
+    dfs(idx + 1, nums);
+    currSet.removeLast();
+    dfs(idx + 1, nums);
+  }
+}
+
+
+1684. Count the Number of Consistent Strings
+
+class Solution {
+        static {
+        for(int i = 0; i< 500; i ++){
+            countConsistentStrings("", new String[]{});    
+        }    
+    }
+    public static int countConsistentStrings(String allowed, String[] words) {
+        
+        int[] temp = new int[26];
+        for (char c : allowed.toCharArray()) {
+            temp[c - 97]++;
+        }
+        int count = 0;
+        for (String word : words) {
+            count += checkword(temp, word);
+
+        }
+        return count;
+    }
+    
+    public static  int checkword(int[] arr, String word) {
+        for (int i = 0; i < word.length(); i++) {
+            if (arr[word.charAt(i) - 'a'] == 0) return 0;
+        }
+        return 1;
+    }
+}
