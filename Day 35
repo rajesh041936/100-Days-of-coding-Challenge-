@@ -1,0 +1,59 @@
+561. Array Partition
+
+class Solution {
+    public int arrayPairSum(int[] nums) {
+        Arrays.sort(nums);
+        int sum = 0;
+        for (int i = 0; i < nums.length; i += 2) {
+            sum += nums[i];
+        }
+        return sum;
+    }
+}
+
+
+350. Intersection of Two Arrays II
+
+class Solution {
+    public int[] intersect(int[] nums1, int[] nums2) {
+     int[] result=new int[Math.min(nums1.length,nums2.length)];
+     int[] counts=new int[1001];
+     for(int n:nums1){
+        counts[n]++;
+     }
+     int k=0;
+     for(int n:nums2){
+        if(counts[n]>0){
+            result[k++]=n;
+            counts[n]--;
+        }
+     }
+     return Arrays.copyOf(result,k);
+
+    }
+}
+
+455. Assign Cookies
+
+import java.util.Arrays;
+
+class Solution {
+    public int findContentChildren(int[] g, int[] s) {
+        Arrays.sort(g);
+        Arrays.sort(s);
+
+        int i = 0;
+        int j = 0;
+        int count = 0;
+
+        while (i < g.length && j < s.length) {
+            if (s[j] >= g[i]) {
+                count++;
+                i++;
+            }
+            j++;
+        }
+
+        return count;
+    }
+}
