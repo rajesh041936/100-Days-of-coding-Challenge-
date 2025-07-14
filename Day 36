@@ -1,0 +1,76 @@
+922. Sort Array By Parity II
+
+class Solution {
+    public int[] sortArrayByParityII(int[] nums) 
+    {
+        int start =0;
+        int end=nums.length-1;
+        int[] result = new int[nums.length];
+        for(int num:nums){
+            if(num%2==0){
+                result[start]=num;
+                start+=2;
+            }
+            else{
+                result[end]=num;
+                end-=2;
+            }
+        }
+        return result;
+    }
+}
+
+976. Largest Perimeter Triangle
+
+class Solution {
+    public int largestPerimeter(int[] nums) {
+        Arrays.sort(nums);
+        int n = nums.length;
+
+        for (int i = n - 1; i >= 2; i--) {
+            int a = nums[i];
+            int b = nums[i - 1];
+            int c = nums[i - 2];
+
+            if (b + c > a) {
+                return a + b + c;
+            }
+        }
+
+        return 0;
+    }
+}
+
+
+1030. Matrix Cells in Distance Order
+
+class Solution {
+    static {
+        for (int i = 0; i < 300; i++) allCellsDistOrder(2, 2, 1, 1);
+    }
+    public static int[][] allCellsDistOrder(int rows, int cols, int rCenter, int cCenter) {
+    
+        int dists = rows + cols - 1;
+        int[] distanceCount = new int[dists];
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < cols; c++) {
+                int dist = Math.abs(r - rCenter) + Math.abs(c - cCenter);
+                distanceCount[dist]++;
+            }
+        }
+
+        int[] distancePrefixes = new int[dists];
+        for (int i = 1; i < dists; i++) {
+            distancePrefixes[i] = distancePrefixes[i-1] + distanceCount[i-1];
+        }
+
+        int[][] output = new int[rows * cols][];
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < cols; c++) {
+                int dist = Math.abs(r - rCenter) + Math.abs(c - cCenter);
+                output[distancePrefixes[dist]++] = new int[] { r, c };
+            }
+        }
+        return output;
+    }
+}
