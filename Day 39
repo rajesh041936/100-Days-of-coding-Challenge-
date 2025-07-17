@@ -1,0 +1,88 @@
+50. Pow(x, n)
+
+class Solution {
+    public double myPow(double x, int n) {
+        long N = n; 
+        if (N < 0) {
+            x = 1 / x;
+            N = -N;
+        }
+
+        return power(x, N);
+    }
+
+    private double power(double x, long n) {
+        if (n == 0) return 1;
+
+        double half = power(x, n / 2);
+
+        if (n % 2 == 0) {
+            return half * half;
+        } else {
+            return half * half * x;
+        }
+    }
+}
+
+
+1922. Count Good Numbers
+
+class Solution {
+    private static final int MOD = 1_000_000_007;
+
+    public int countGoodNumbers(long n) {
+        long evenpositions = (n + 1) / 2;
+        long oddpositions = n / 2;
+
+        long evenpower = modpower(5, evenpositions, MOD);
+        long oddpower = modpower(4, oddpositions, MOD);
+
+        return (int)((evenpower * oddpower) % MOD);
+    }
+    private long modpower(long base, long exponent, int mod) {
+        long result = 1;
+        base = base % mod;
+
+        while (exponent > 0) {
+            if (exponent % 2 == 1) {
+                result = (result * base) % mod;
+            }
+            base = (base * base) % mod;
+            exponent = exponent / 2;
+        }
+
+        return result;
+    }
+}
+
+
+1969. Minimum Non-Zero Product of the Array Elements
+
+class Solution {
+    private static final int MOD = 1_000_000_007;
+
+    public int minNonZeroProduct(int p) {
+
+        long max = (long)Math.pow(2, p) - 1;
+        long base = max - 1;
+        long exp = (max) / 2;
+
+        long power = modPow(base, exp, MOD);
+        return (int)((power * (max % MOD)) % MOD);
+    }
+
+    private long modPow(long base, long exponent, int mod) {
+        long result = 1;
+        base = base % mod;
+
+        while (exponent > 0) {
+            if (exponent % 2 == 1) {
+                result = (result * base) % mod;
+            }
+            base = (base * base) % mod;
+            exponent = exponent / 2;
+        }
+
+        return result;
+    }
+}
