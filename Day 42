@@ -1,0 +1,77 @@
+3483. Unique 3-Digit Even Numbers
+
+class Solution {
+    public int totalNumbers(int[] digits) 
+    {
+        Set<Integer> result=new HashSet<>();
+        int n=digits.length;
+
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                for(int k=0;k<n;k++){
+                    if(i==j || j==k || i==k) continue;
+                    int d1 = digits[i], d2 = digits[j], d3 = digits[k];
+                    if(d1==0) continue;
+                    if(d3%2 != 0) continue;
+                    int digit=d1*100+d2*10+d3;
+                    result.add(digit);
+                }
+            }
+        }
+        return result.size();   
+    }
+}
+
+1079. Letter Tile Possibilities
+
+class Solution {
+    public int numTilePossibilities(String tiles) {
+        int[] count = new int[26];
+        for (char ch : tiles.toCharArray()) {
+            count[ch - 'A']++;
+        }
+        return dfs(count);
+    }
+
+    private int dfs(int[] count) {
+        int sum = 0;
+
+        for (int i = 0; i < 26; i++) {
+            if (count[i] == 0) continue;
+
+            count[i]--;
+            sum += 1; 
+            sum += dfs(count); 
+            count[i]++;
+        }
+
+        return sum;
+    }
+}
+
+
+797. All Paths From Source to Target
+
+class Solution {
+    public List<List<Integer>> allPathsSourceTarget(int[][] graph) {
+        List<List<Integer>> result = new ArrayList<>();
+        List<Integer> path = new ArrayList<>();
+
+        path.add(0); 
+        dfs(0, graph, path, result);
+        return result;
+    }
+
+    private void dfs(int node, int[][] graph, List<Integer> path, List<List<Integer>> result) {
+        if (node == graph.length - 1) {
+            result.add(new ArrayList<>(path)); 
+            return;
+        }
+
+        for (int neighbor : graph[node]) {
+            path.add(neighbor);
+            dfs(neighbor, graph, path, result);
+            path.remove(path.size() - 1);
+        }
+    }
+}
