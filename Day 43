@@ -1,0 +1,111 @@
+143. Reorder List
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public void reorderList(ListNode head) {
+        if (head == null || head.next == null) return;
+
+        ListNode slow = head, fast = head;
+        while (fast != null && fast.next != null && fast.next.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        ListNode second = reverse(slow.next);
+        slow.next = null; 
+
+        ListNode first = head;
+        while (second != null) {
+            ListNode temp1 = first.next;
+            ListNode temp2 = second.next;
+
+            first.next = second;
+            second.next = temp1;
+
+            first = temp1;
+            second = temp2;
+        }
+    }
+
+    private ListNode reverse(ListNode head) {
+        ListNode prev = null;
+        while (head != null) {
+            ListNode nextTemp = head.next;
+            head.next = prev;
+            prev = head;
+            head = nextTemp;
+        }
+        return prev;
+    }
+}
+
+
+1219. Path with Maximum Gold
+
+class Solution {
+    int maxGold = 0;
+    int[][] dirs = {{0,1},{1,0},{0,-1},{-1,0}};
+
+    public int getMaximumGold(int[][] grid) {
+        int rows = grid.length, cols = grid[0].length;
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (grid[i][j] > 0) {
+                    dfs(grid, i, j, 0);
+                }
+            }
+        }
+        return maxGold;
+    }
+
+    private void dfs(int[][] grid, int i, int j, int currentGold) {
+        int originalGold = grid[i][j];
+        currentGold += originalGold;
+        maxGold = Math.max(maxGold, currentGold);
+
+        grid[i][j] = 0; 
+
+        for (int[] d : dirs) {
+            int ni = i + d[0], nj = j + d[1];
+            if (ni >= 0 && ni < grid.length && nj >= 0 && nj < grid[0].length && grid[ni][nj] > 0) {
+                dfs(grid, ni, nj, currentGold);
+            }
+        }
+
+        grid[i][j] = originalGold; 
+    }
+}
+
+
+526. Beautiful Arrangement
+
+class Solution {
+    public int countArrangement(int n) {
+        boolean[] visited = new boolean[n + 1];
+        return backtrack(1, n, visited);
+    }
+
+    private int backtrack(int position, int n, boolean[] visited) {
+        if (position > n) return 1; 
+        
+        int count = 0;
+        for (int i = 1; i <= n; i++) {
+            if (!visited[i] && (i % position == 0 || position % i == 0)) {
+                visited[i] = true;
+                count += backtrack(position + 1, n, visited);
+                visited[i] = false; 
+            }
+        }
+        return count;
+    }
+}
