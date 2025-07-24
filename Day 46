@@ -47,7 +47,6 @@ class Solution {
 
 412. Fizz Buzz
 
-import java.util.*;
 
 class Solution {
     public List<String> fizzBuzz(int n) {
