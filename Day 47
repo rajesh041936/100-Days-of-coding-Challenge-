@@ -1,0 +1,61 @@
+507. Perfect Number
+
+class Solution {
+    public boolean checkPerfectNumber(int num) {
+        if (num <= 1) return false;
+
+        int sum = 1; 
+        
+        for (int i = 2; i <= Math.sqrt(num); i++) {
+            if (num % i == 0) {
+                sum += i;              
+                int pair = num / i;    
+                
+                if (pair != i) {
+                    sum += pair;
+                }
+            }
+        }
+        return sum == num;
+    }
+}
+
+
+504. Base 7
+
+class Solution {
+    public String convertToBase7(int num) 
+    {
+        if(num==0) return "0";
+
+        boolean check=num<0;
+        num=Math.abs(num);
+
+        StringBuilder ans= new StringBuilder();
+
+        while(num>0){
+            ans.append(num%7);
+            num=num/7;
+        }
+        if(check){
+            ans.append("-");
+        }
+        return ans.reverse().toString;
+    }
+}
+
+492. Construct the Rectangle
+
+class Solution {
+    public int[] constructRectangle(int area) {
+        int width = (int) Math.sqrt(area);
+
+        while (area % width != 0) {
+            width--;
+        }
+
+        int length = area / width;
+        return new int[]{length, width}; 
+    }
+}
+
