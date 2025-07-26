@@ -1,0 +1,70 @@
+48. Rotate Image
+
+class Solution {
+    public void rotate(int[][] matrix) {
+        int n = matrix.length;
+
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                int temp = matrix[i][j];
+                matrix[i][j] = matrix[j][i];
+                matrix[j][i] = temp;
+            }
+        }
+
+        for (int i = 0; i < n; i++) {
+            int left = 0, right = n - 1;
+            while (left < right) {
+                int temp = matrix[i][left];
+                matrix[i][left] = matrix[i][right];
+                matrix[i][right] = temp;
+
+                left++;
+                right--;
+            }
+        }
+    }
+}
+
+
+415. Add Strings
+
+class Solution {
+    public String addStrings(String num1, String num2) {
+        StringBuilder result = new StringBuilder(); 
+        int carry = 0, i = num1.length() - 1, j = num2.length() - 1;
+
+    while (i >= 0 || j >= 0 || carry != 0) {
+        int x = (i >= 0) ? num1.charAt(i--) - '0' : 0; 
+        int y = (j >= 0) ? num2.charAt(j--) - '0' : 0; 
+
+        int sum = x + y + carry;            
+        result.append(sum % 10);            
+        carry = sum / 10;                    
+    }
+
+    return result.reverse().toString(); 
+    }
+}
+
+
+2520. Count the Digits That Divide a Number
+
+class Solution {
+    public int countDigits(int num) {
+        int count = 0;
+        int original = num;
+
+        while (num > 0) {
+            int digit = num % 10;
+
+            if (original % digit == 0) {
+                count++;
+            }
+
+            num /= 10;
+        }
+
+        return count;
+    }
+}
