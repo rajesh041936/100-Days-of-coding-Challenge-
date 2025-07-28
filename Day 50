@@ -1,0 +1,65 @@
+237. Delete Node in a Linked List
+
+class Solution {
+    public void deleteNode(ListNode node) {
+        node.val = node.next.val;      
+        node.next = node.next.next;    
+    }
+}
+
+160. Intersection of Two Linked Lists
+
+public class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        if (headA == null || headB == null) return null;
+
+        ListNode pA = headA;
+        ListNode pB = headB;
+
+        while (pA != pB) {
+            pA = (pA == null) ? headB : pA.next;
+            pB = (pB == null) ? headA : pB.next;
+        }
+
+        return pA;
+    }
+}
+
+
+234. Palindrome Linked List
+
+class Solution {
+    public boolean isPalindrome(ListNode head) {
+        if (head == null || head.next == null) return true;
+
+        ListNode slow = head, fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        ListNode secondHalfHead = reverse(slow);
+
+        ListNode firstHalf = head;
+        ListNode secondHalf = secondHalfHead;
+        while (secondHalf != null) {
+            if (firstHalf.val != secondHalf.val) return false;
+            firstHalf = firstHalf.next;
+            secondHalf = secondHalf.next;
+        }
+
+
+        return true;
+    }
+
+    private ListNode reverse(ListNode head) {
+        ListNode prev = null;
+        while (head != null) {
+            ListNode nextNode = head.next;
+            head.next = prev;
+            prev = head;
+            head = nextNode;
+        }
+        return prev;
+    }
+}
