@@ -1,0 +1,79 @@
+82. Remove Duplicates from Sorted List II
+
+class Solution {
+    public ListNode deleteDuplicates(ListNode head) {
+        ListNode dummy = new ListNode(0, head);
+        ListNode prev = dummy;
+
+        while (head != null) {
+            if (head.next != null && head.val == head.next.val) {
+                while (head.next != null && head.val == head.next.val) {
+                    head = head.next;
+                }
+                prev.next = head.next;
+            } else {
+                prev = prev.next;
+            }
+            head = head.next;
+        }
+
+        return dummy.next;
+    }
+}
+
+
+86. Partition List
+
+class Solution {
+    public ListNode partition(ListNode head, int x) {
+        ListNode beforeHead = new ListNode(0);
+        ListNode afterHead = new ListNode(0);
+        ListNode before = beforeHead;
+        ListNode after = afterHead;
+
+        while (head != null) {
+            if (head.val < x) {
+                before.next = head;
+                before = before.next;
+            } else {
+                after.next = head;
+                after = after.next;
+            }
+            head = head.next;
+        }
+
+        after.next = null;
+        before.next = afterHead.next;
+
+        return beforeHead.next;
+    }
+}
+
+
+2095. Delete the Middle Node of a Linked List
+
+class Solution {
+    public ListNode deleteMiddle(ListNode head) {
+        if (head == null || head.next == null) {
+            return null;
+        }
+
+        ListNode slow = head;
+        ListNode fast = head;
+        ListNode prev = null;
+
+        while (fast != null && fast.next != null) {
+            prev = slow;         
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        prev.next = slow.next;
+
+        return head;
+    }
+}
+
+
+
+2095. Delete the Middle Node of a Linked List
