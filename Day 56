@@ -1,0 +1,69 @@
+1047. Remove All Adjacent Duplicates In String
+
+class Solution {
+    public String removeDuplicates(String s) {
+        StringBuilder stack = new StringBuilder();
+
+        for (char ch : s.toCharArray()) {
+            int len = stack.length();
+            if (len > 0 && stack.charAt(len - 1) == ch) {
+                stack.deleteCharAt(len - 1);
+            } else {
+                stack.append(ch);
+            }
+        }
+
+        return stack.toString();
+    }
+}
+
+
+1021. Remove Outermost Parentheses
+
+class Solution {
+    public String removeOuterParentheses(String s) {
+        StringBuilder result = new StringBuilder();
+        int count = 0; 
+
+        for (char ch : s.toCharArray()) {
+            if (ch == '(') {
+                if (count > 0) result.append(ch);
+                count++;
+            } else if (ch == ')') {
+                count--;
+                if (count > 0) result.append(ch);
+            }
+        }
+
+        return result.toString();
+    }
+}
+
+
+496. Next Greater Element I
+
+class Solution {
+    public int[] nextGreaterElement(int[] nums1, int[] nums2) {
+        Map<Integer, Integer> nextGreaterMap = new HashMap<>();
+        Stack<Integer> stack = new Stack<>();
+
+        for (int num : nums2) {
+            while (!stack.isEmpty() && num > stack.peek()) {
+                int prev = stack.pop();
+                nextGreaterMap.put(prev, num);
+            }
+            stack.push(num);
+        }
+
+        while (!stack.isEmpty()) {
+            nextGreaterMap.put(stack.pop(), -1);
+        }
+
+        int[] result = new int[nums1.length];
+        for (int i = 0; i < nums1.length; i++) {
+            result[i] = nextGreaterMap.get(nums1[i]);
+        }
+
+        return result;
+    }
+}
