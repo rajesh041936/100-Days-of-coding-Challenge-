@@ -1,0 +1,118 @@
+921. Minimum Add to Make Parentheses Valid
+
+class Solution {
+    public int minAddToMakeValid(String s) {
+        int open = 0;
+        int close = 0;
+
+        for (char c : s.toCharArray()) {
+            if (c == '(') {
+                close++;  
+            } else {
+                if (close > 0) {
+                    close--;  
+                } else {
+                    open++;   
+                }
+            }
+        }
+
+        return open + close;
+    }
+}
+
+
+232. Implement Queue using Stacks
+
+class MyQueue {
+
+    private Stack<Integer> stack1;
+    private Stack<Integer> stack2;
+    public MyQueue() 
+    {
+        stack1=new Stack<>();
+        stack2=new Stack<>();
+        
+    }
+    
+    public void push(int x) {
+        stack1.push(x);
+        
+    }
+    
+    public int pop() {
+        shiftstacks();
+        return stack2.pop();    
+        
+    }
+    
+    public int peek() {
+        shiftstacks();
+        return stack2.peek();
+        
+    }
+    
+    public boolean empty() {
+        return stack1.isEmpty() && stack2.isEmpty();
+        
+    }
+    private void shiftstacks(){
+        if(stack2.isEmpty()){
+            while(!stack1.isEmpty()){
+                stack2.push(stack1.pop());
+            }
+        }
+    }
+}
+
+/**
+ * Your MyQueue object will be instantiated and called as such:
+ * MyQueue obj = new MyQueue();
+ * obj.push(x);
+ * int param_2 = obj.pop();
+ * int param_3 = obj.peek();
+ * boolean param_4 = obj.empty();
+ */
+
+1381. Design a Stack With Increment Operation
+
+class CustomStack {
+
+    private int[] stack;
+    private int maxSize;
+    private int top;
+
+    public CustomStack(int maxSize) {
+        this.maxSize = maxSize;
+        this.stack = new int[maxSize];
+        this.top = 0; 
+    }
+
+    public void push(int x) {
+        if (top < maxSize) {
+            stack[top++] = x;
+        }
+    }
+
+    public int pop() {
+        if (top == 0) {
+            return -1;
+        }
+        return stack[--top];
+    }
+
+    public void increment(int k, int val) {
+        int limit = Math.min(k, top);
+        for (int i = 0; i < limit; i++) {
+            stack[i] += val;
+        }
+    }
+}
+
+/**
+ * Your CustomStack object will be instantiated and called as such:
+ * CustomStack obj = new CustomStack(maxSize);
+ * obj.push(x);
+ * int param_2 = obj.pop();
+ * obj.increment(k,val);
+ */
