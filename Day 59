@@ -1,0 +1,94 @@
+1541. Minimum Insertions to Balance a Parentheses String
+
+class Solution {
+    public int minInsertions(String s) {
+     
+      int open =0, insertions =0; 
+
+      for(char c : s.toCharArray())
+      {
+        if (c == '(')
+        {
+            open+=2;
+              if(open%2 ==1)
+                {
+                    insertions++;
+                    open--;
+                }
+        }
+        else {
+            open--;
+            if(open <0)
+            {
+                insertions++;
+                open=1;
+            }
+        }
+      }
+      return insertions  + open;
+    }
+    }
+
+
+456. 132 Pattern
+
+
+class Solution {
+    public boolean find132pattern(int[] nums) {
+        int n = nums.length;
+        Stack<Integer> stack = new Stack<>();
+        int second = Integer.MIN_VALUE;
+
+        for (int i = n - 1; i >= 0; i--) {
+            if (nums[i] < second) {
+                return true;
+            }
+
+            while (!stack.isEmpty() && nums[i] > stack.peek()) {
+                second = stack.pop();
+            }
+
+            stack.push(nums[i]);
+        }
+
+        return false;
+    }
+}
+
+
+735. Asteroid Collision
+
+
+class Solution {
+    public int[] asteroidCollision(int[] asteroids) {
+        Stack<Integer> stack = new Stack<>();
+
+        for (int a : asteroids) {
+            boolean alive = true;
+
+            while (!stack.isEmpty() && a < 0 && stack.peek() > 0) {
+                if (stack.peek() < -a) {
+                    stack.pop(); 
+                } else if (stack.peek() == -a) {
+                    stack.pop();
+                    alive = false;
+                    break;
+                } else {
+                    alive = false; 
+                    break;
+                }
+            }
+
+            if (alive) {
+                stack.push(a);
+            }
+        }
+
+        int[] result = new int[stack.size()];
+        for (int i = result.length - 1; i >= 0; i--) {
+            result[i] = stack.pop();
+        }
+
+        return result;
+    }
+}
