@@ -1,0 +1,91 @@
+112. Path Sum
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public boolean hasPathSum(TreeNode root, int targetSum) 
+    {
+        if(root ==null) return false;
+
+        if(root.left==null && root.right==null) return targetSum==root.val;
+
+        return hasPathSum(root.left,targetSum-root.val) || hasPathSum(root.right,targetSum-root.val);
+        
+    }
+}
+
+144. Binary Tree Preorder Traversal
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public List<Integer> preorderTraversal(TreeNode root) 
+    {
+        List<Integer> result=new ArrayList<>();
+        preorder(root,result);
+        return result;
+        
+    }
+    private void preorder(TreeNode node,List<Integer> result){
+        if(node==null) return ;
+
+        result.add(node.val);
+        preorder(node.left,result);
+        preorder(node.right,result);
+    }
+}
+111. Minimum Depth of Binary Tree
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public int minDepth(TreeNode root) {
+       
+        if(root == null) return 0;
+        if(root.left == null && root.right == null) return 1;
+        int lt =root.left == null ? Integer.MAX_VALUE : minDepth(root.left) + 1;
+        int rt =root.right == null ? Integer.MAX_VALUE : minDepth(root.right) + 1;
+        return Math.min(lt, rt);
+        
+    }
+   
+}
