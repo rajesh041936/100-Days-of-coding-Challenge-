@@ -1,0 +1,145 @@
+687. Longest Univalue Path
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    private int maxLength = 0;
+
+    public int longestUnivaluePath(TreeNode root) {
+        dfs(root);
+        return maxLength;
+    }
+
+    private int dfs(TreeNode node) {
+        if (node == null) return 0;
+
+        int left = dfs(node.left);
+        int right = dfs(node.right);
+
+        int leftPath = 0, rightPath = 0;
+
+        if (node.left != null && node.left.val == node.val) {
+            leftPath = left + 1;
+        }
+        if (node.right != null && node.right.val == node.val) {
+            rightPath = right + 1;
+        }
+
+        maxLength = Math.max(maxLength, leftPath + rightPath);
+
+        return Math.max(leftPath, rightPath);
+    }
+}
+2476. Closest Nodes Queries in a Binary Search Tree
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    private void inorder(TreeNode root, List<Integer> res) {
+        if (root == null) return;
+        inorder(root.left, res);
+        res.add(root.val);
+        inorder(root.right, res);
+    }
+
+    public List<List<Integer>> closestNodes(TreeNode root, List<Integer> queries) {
+        List<Integer> sortedValues = new ArrayList<>();
+        inorder(root, sortedValues);
+        List<List<Integer>> result = new ArrayList<>();
+
+        for (int query : queries) {
+            int min = -1;
+            int max = -1;
+            int left = 0, right = sortedValues.size() - 1;
+
+            while (left <= right) {
+                int mid = left + (right - left) / 2;
+                int curr = sortedValues.get(mid);
+                if (curr == query) {
+                    min = query;
+                    max = query;
+                    break;
+                } else if (curr > query) {
+                    max = curr;
+                    right = mid - 1;
+                } else {
+                    min = curr;
+                    left = mid + 1;
+                }
+            }
+            result.add(Arrays.asList(min, max));
+        }
+
+        return result;
+    }
+}
+
+
+1361. Validate Binary Tree Nodes
+
+class Solution {
+    int[] parent;
+    int components ;
+
+    int find (int x){
+        if(parent[x]==x) return x;
+        return parent[x]=find(parent[x]);
+    }
+
+    boolean union( int p , int c ){
+        int childParent=find(c);
+        if ( childParent!=c) return false;
+
+        int parentParent=find(p);
+
+        if( parentParent==childParent) return false;
+
+        parent[c]=p;
+        components--;
+        return true;
+    }
+
+
+    public boolean validateBinaryTreeNodes(int n, int[] leftChild, int[] rightChild) {
+        components=n;
+        parent=new int[n];
+
+        for ( int i = 0 ; i < n ;i++){
+            parent[i]=i;
+        }
+
+        for ( int i = 0 ; i< n ;i++){
+            if( leftChild[i]>=0 && !union(i, leftChild[i])) return false;
+            if( rightChild[i]>=0 && !union(i, rightChild[i])) return false;
+        }
+
+        return components==1;
+    }
+}
+
