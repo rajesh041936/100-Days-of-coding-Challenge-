@@ -1,0 +1,163 @@
+2096. Step-By-Step Directions From a Binary Tree Node to Another
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public String getDirections(TreeNode root, int startValue, int destValue) {
+        StringBuilder pathS = new StringBuilder();
+        StringBuilder pathT = new StringBuilder();
+
+        getPath(root, startValue, pathS);
+        getPath(root, destValue, pathT);
+
+        String sPath = pathS.toString();
+        String tPath = pathT.toString();
+
+        int i = 0;
+        while (i < sPath.length() && i < tPath.length() && sPath.charAt(i) == tPath.charAt(i)) {
+            i++;
+        }
+
+        StringBuilder result = new StringBuilder();
+        for (int j = i; j < sPath.length(); j++) {
+            result.append('U');
+        }
+
+        result.append(tPath.substring(i));
+
+        return result.toString();
+    }
+
+    private boolean getPath(TreeNode root, int target, StringBuilder path) {
+        if (root == null) return false;
+        if (root.val == target) return true;
+
+        path.append('L');
+        if (getPath(root.left, target, path)) return true;
+        path.deleteCharAt(path.length() - 1);
+
+        path.append('R');
+        if (getPath(root.right, target, path)) return true;
+        path.deleteCharAt(path.length() - 1);
+
+        return false;
+    }
+}
+1339. Maximum Product of Splitted Binary Tree
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    private long maxProduct = 0;
+    private long totalSum = 0;
+    private static final int MOD = 1000000007;
+
+    public int maxProduct(TreeNode root) {
+        totalSum = getSum(root);
+        
+        getSum(root);
+        
+        return (int)(maxProduct % MOD);
+    }
+
+    private long getSum(TreeNode node) {
+        if (node == null) return 0;
+        
+        long left = getSum(node.left);
+        long right = getSum(node.right);
+        
+        long subTreeSum = node.val + left + right;
+        
+        long product = subTreeSum * (totalSum - subTreeSum);
+        maxProduct = Math.max(maxProduct, product);
+        
+        return subTreeSum;
+    }
+}
+
+
+
+2467. Most Profitable Path in a Tree
+
+class Solution {
+    private List<Integer>[] graph;
+    private int[] bobTime;
+
+    public int mostProfitablePath(int[][] edges, int bob, int[] amount) {
+        int n = amount.length;
+        graph = new ArrayList[n];
+        for (int i = 0; i < n; i++) graph[i] = new ArrayList<>();
+        for (int[] e : edges) {
+            graph[e[0]].add(e[1]);
+            graph[e[1]].add(e[0]);
+        }
+
+        bobTime = new int[n];
+        Arrays.fill(bobTime, Integer.MAX_VALUE);
+        dfsBob(bob, -1, 0);
+
+        return dfsAlice(0, -1, 0, amount);
+    }
+
+    private boolean dfsBob(int node, int parent, int time) {
+        if (node == 0) {
+            bobTime[node] = time;
+            return true;
+        }
+        for (int nei : graph[node]) {
+            if (nei == parent) continue;
+            if (dfsBob(nei, node, time + 1)) {
+                bobTime[node] = time;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private int dfsAlice(int node, int parent, int time, int[] amount) {
+        int income = 0;
+        if (time < bobTime[node]) {
+            income = amount[node];  
+        } else if (time == bobTime[node]) {
+            income = amount[node] / 2;  
+        }
+
+        int best = Integer.MIN_VALUE;
+        boolean isLeaf = true;
+
+        for (int nei : graph[node]) {
+            if (nei == parent) continue;
+            isLeaf = false;
+            best = Math.max(best, dfsAlice(nei, node, time + 1, amount));
+        }
+
+        if (isLeaf) return income;
+        return income + best;
+    }
+}
