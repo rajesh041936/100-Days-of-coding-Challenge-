@@ -1,0 +1,92 @@
+1464. Maximum Product of Two Elements in an Array
+
+
+class Solution {
+    public int maxProduct(int[] nums) {
+        int max1 = 0, max2 = 0;
+        
+        for (int num : nums) {
+            if (num > max1) {
+                max2 = max1;
+                max1 = num;
+            } else if (num > max2) {
+                max2 = num;
+            }
+        }
+        
+        return (max1 - 1) * (max2 - 1);
+    }
+}
+
+
+506. Relative Ranks
+
+class Solution {
+    public String[] findRelativeRanks(int[] score) 
+    {
+        int n=score.length;
+        String[] result= new String[n];
+
+        PriorityQueue<int[]> pq=new PriorityQueue<>((a,b) ->Integer.compare(b[0],a[0]));
+
+        for(int i=0;i<n;i++){
+            pq.offer(new int[]{score[i],i});
+        }
+        int rank=1;
+        while(!pq.isEmpty()){
+            int[] curr=pq.poll();
+            int index=curr[1];
+
+            if(rank==1){
+                result[index]="Gold Medal";
+            }
+            else if(rank==2){
+                result[index]="Silver Medal";
+            }
+            else if(rank==3){
+                result[index]="Bronze Medal";
+            }else{
+                result[index]=String.valueOf(rank);
+            }
+            rank++;
+        }
+        return result;
+        
+    }
+}
+
+1337. The K Weakest Rows in a Matrix
+
+
+class Solution {
+    public int[] kWeakestRows(int[][] mat, int k) 
+    {
+        int n=mat.length;
+        int m=mat[0].length;
+
+        PriorityQueue<int[]> pq= new PriorityQueue<>((a,b)->{
+            if(a[0]==b[0]){
+                return a[1]-b[1];
+            }
+            return a[0]-b[0];
+        });
+
+        for(int i=0;i<n;i++){
+            int soldiers=0;
+            for(int j=0;j<m;j++){
+                if(mat[i][j]==1){
+                    soldiers++;
+                }
+                else{
+                    break;
+                }
+            }
+            pq.offer(new int[]{soldiers,i});
+        }
+        int[] result=new int[k];
+        for(int i=0;i<k;i++){
+            result[i]=pq.poll()[1];
+        }
+        return result;
+    }
+}
