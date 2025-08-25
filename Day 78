@@ -1,0 +1,55 @@
+2974. Minimum Number Game
+
+
+class Solution {
+    public int[] numberGame(int[] nums) {
+        Arrays.sort(nums);
+        int n = nums.length;
+        int[] result = new int[n];
+        int idx = 0;
+
+        for (int i = 0; i < n; i += 2) {
+            result[idx++] = nums[i + 1];
+            result[idx++] = nums[i];
+        }
+        return result;
+    }
+}
+
+
+2558. Take Gifts From the Richest Pile
+
+
+class Solution {
+    public long pickGifts(int[] gifts, int k) {
+        PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> b - a);
+        for (int g : gifts) pq.add(g);
+        for (int i = 0; i < k; i++) {
+            int max = pq.poll();
+            pq.add((int) Math.sqrt(max));
+        }
+        long total = 0;
+        while (!pq.isEmpty()) total += pq.poll();
+        return total;
+    }
+}
+
+
+2500. Delete Greatest Value in Each Row
+
+
+class Solution {
+    public int deleteGreatestValue(int[][] grid) {
+        int m = grid.length, n = grid[0].length;
+        for (int[] row : grid) Arrays.sort(row);
+        int ans = 0;
+        for (int j = n - 1; j >= 0; j--) {
+            int max = 0;
+            for (int i = 0; i < m; i++) {
+                max = Math.max(max, grid[i][j]);
+            }
+            ans += max;
+        }
+        return ans;
+    }
+}
