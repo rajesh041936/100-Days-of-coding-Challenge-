@@ -1,0 +1,67 @@
+2341. Maximum Number of Pairs in Array
+
+
+class Solution {
+    public int[] numberOfPairs(int[] nums) {
+        int[] freq = new int[101]; 
+        
+        for (int num : nums) {
+            freq[num]++;
+        }
+        int pairs = 0;
+        int leftovers = 0;
+        for (int count : freq) {
+            pairs += count / 2;
+            leftovers += count % 2;
+        } 
+        return new int[]{pairs, leftovers};
+    }
+}
+
+
+2367. Number of Arithmetic Triplets
+
+
+class Solution {
+    public int arithmeticTriplets(int[] nums, int diff) {
+        Set<Integer> set = new HashSet<>();
+        int count = 0;
+
+        for (int num : nums) {
+            if (set.contains(num - diff) && set.contains(num - 2 * diff)) {
+                count++;
+            }
+            set.add(num);
+        }
+
+        return count;
+    }
+}
+
+
+2325. Decode the Message
+
+class Solution {
+    public String decodeMessage(String key, String message) {
+        Map<Character, Character> map = new HashMap<>();
+        char substitute = 'a';
+        
+        for (char ch : key.toCharArray()) {
+            if (ch != ' ' && !map.containsKey(ch)) {
+                map.put(ch, substitute);
+                substitute++;
+            }
+        }
+        
+        StringBuilder decoded = new StringBuilder();
+        for (char ch : message.toCharArray()) {
+            if (ch == ' ') {
+                decoded.append(' ');
+            } else {
+                decoded.append(map.get(ch));
+            }
+        }
+        
+        return decoded.toString();
+    }
+}
