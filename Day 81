@@ -1,0 +1,64 @@
+500. Keyboard Row
+
+
+class Solution {
+    public String[] findWords(String[] words) {
+        String row1 = "qwertyuiop";
+        String row2 = "asdfghjkl";
+        String row3 = "zxcvbnm";
+
+        List<String> result = new ArrayList<>();
+
+        for (String word : words) {
+            String lower = word.toLowerCase();
+            if (canType(lower, row1) || canType(lower, row2) || canType(lower, row3)) {
+                result.add(word); 
+            }
+        }
+
+        return result.toArray(new String[0]);
+    }
+
+    private boolean canType(String word, String row) {
+        for (char c : word.toCharArray()) {
+            if (row.indexOf(c) == -1) {
+                return false; 
+            }
+        }
+        return true;
+    }
+}
+
+
+2006. Count Number of Pairs With Absolute Difference K
+
+
+class Solution {
+    public int countKDifference(int[] nums, int k) {
+        Map<Integer, Integer> freq = new HashMap<>();
+        int count = 0;
+
+        for (int num : nums) {
+            count += freq.getOrDefault(num - k, 0);
+            count += freq.getOrDefault(num + k, 0);
+            freq.put(num, freq.getOrDefault(num, 0) + 1);
+        }
+
+        return count;
+    }
+}
+
+
+575. Distribute Candies
+
+
+class Solution {
+    public int distributeCandies(int[] candyType) {
+        int n=candyType.length;
+        Set<Integer>types=new HashSet<>();
+        for(int num:candyType){
+            types.add(num);
+        }
+        return Math.min(n/2,types.size());
+    }
+}
