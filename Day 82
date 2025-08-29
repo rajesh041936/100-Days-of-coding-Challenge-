@@ -1,0 +1,57 @@
+961. N-Repeated Element in Size 2N Array
+
+
+class Solution {
+    public int repeatedNTimes(int[] nums) {
+        HashSet<Integer> seen = new HashSet<>();
+        for (int num : nums) {
+            if (seen.contains(num)) {
+                return num; 
+            }
+            seen.add(num);
+        }
+        return -1; 
+    }
+}
+
+
+1207. Unique Number of Occurrences
+
+
+class Solution {
+    public boolean uniqueOccurrences(int[] arr) {
+        Map<Integer, Integer> freqMap = new HashMap<>();
+        for (int num : arr) {
+            freqMap.put(num, freqMap.getOrDefault(num, 0) + 1);
+        }
+        Set<Integer> freqSet = new HashSet<>(freqMap.values());
+        return freqMap.size() == freqSet.size();
+    }
+}
+
+
+1002. Find Common Characters
+class Solution {
+    public List<String> commonChars(String[] words) {
+        int[] minFreq = new int[26];
+        Arrays.fill(minFreq, Integer.MAX_VALUE);
+
+        for (String word : words) {
+            int[] freq = new int[26];
+            for (char c : word.toCharArray()) {
+                freq[c - 'a']++;
+            }
+            for (int i = 0; i < 26; i++) {
+                minFreq[i] = Math.min(minFreq[i], freq[i]);
+            }
+        }
+
+        List<String> result = new ArrayList<>();
+        for (int i = 0; i < 26; i++) {
+            for (int count = 0; count < minFreq[i]; count++) {
+                result.add(String.valueOf((char) (i + 'a')));
+            }
+        }
+        return result;
+    }
+}
