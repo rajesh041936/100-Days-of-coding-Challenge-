@@ -1,0 +1,73 @@
+2956. Find Common Elements Between Two Arrays
+
+
+class Solution {
+    public int[] findIntersectionValues(int[] nums1, int[] nums2) {
+        int answer1 = 0;
+        int answer2 = 0;     
+        for (int i = 0; i < nums1.length; i++) {
+            for (int j = 0; j < nums2.length; j++) {
+                if (nums1[i] == nums2[j]) {
+                    answer1++;
+                    break; 
+                }
+            }
+        }
+        for (int i = 0; i < nums2.length; i++) {
+            for (int j = 0; j < nums1.length; j++) {
+                if (nums2[i] == nums1[j]) {
+                    answer2++;
+                    break; 
+                }
+            }
+        }
+
+        return new int[]{answer1, answer2};
+    }
+}
+
+
+2913. Subarrays Distinct Element Sum of Squares I
+
+
+class Solution {
+    public int sumCounts(List<Integer> nums) {
+        int n = nums.size();
+        int total = 0;
+
+        for (int i = 0; i < n; i++) {
+            Set<Integer> set = new HashSet<>();
+            for (int j = i; j < n; j++) {
+                set.add(nums.get(j));
+                int distinct = set.size();
+                total += distinct * distinct;
+            }
+        }
+
+        return total;
+    }
+}
+
+
+2848. Points That Intersect With Cars
+
+
+class Solution {
+    public int numberOfPoints(List<List<Integer>> nums) {
+        boolean[] covered = new boolean[101];
+        
+        for (List<Integer> car : nums) {
+            int start = car.get(0);
+            int end = car.get(1);
+            for (int i = start; i <= end; i++) {
+                covered[i] = true;
+            }
+        }
+        
+        int count = 0;
+        for (int i = 1; i <= 100; i++) {
+            if (covered[i]) count++;
+        }
+        return count;
+    }
+}
