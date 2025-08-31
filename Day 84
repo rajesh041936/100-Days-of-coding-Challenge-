@@ -1,0 +1,71 @@
+3042. Count Prefix and Suffix Pairs I
+
+
+class Solution {
+    public int countPrefixSuffixPairs(String[] words) {
+        int count = 0;
+        int n = words.length;
+
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                if (isPrefixAndSuffix(words[i], words[j])) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+    private boolean isPrefixAndSuffix(String a, String b) {
+        return b.startsWith(a) && b.endsWith(a);
+    }
+}
+
+
+535. Encode and Decode TinyURL
+
+
+public class Codec {
+
+    public String encode(String longUrl) {
+        return longUrl;
+    }
+
+    public String decode(String shortUrl) {
+        return shortUrl;
+    }
+}
+
+
+// Your Codec object will be instantiated and called as such:
+// Codec codec = new Codec();
+// codec.decode(codec.encode(url));
+
+3034. Number of Subarrays That Match a Pattern I
+
+
+class Solution {
+    public int countMatchingSubarrays(int[] nums, int[] pattern) {
+        int n = nums.length, m = pattern.length;
+        int count = 0;
+
+        for (int i = 0; i + m < n; i++) {
+            boolean match = true;
+            for (int k = 0; k < m; k++) {
+                if (pattern[k] == 1 && nums[i + k + 1] <= nums[i + k]) {
+                    match = false;
+                    break;
+                }
+                if (pattern[k] == 0 && nums[i + k + 1] != nums[i + k]) {
+                    match = false;
+                    break;
+                }
+                if (pattern[k] == -1 && nums[i + k + 1] >= nums[i + k]) {
+                    match = false;
+                    break;
+                }
+            }
+            if (match) count++;
+        }
+        return count;
+    }
+}
