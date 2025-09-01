@@ -1,0 +1,57 @@
+119. Pascal's Triangle II
+
+
+class Solution {
+    public List<Integer> getRow(int rowIndex) {
+        List<Integer> row = new ArrayList<>();
+        row.add(1);
+
+        for (int i = 1; i <= rowIndex; i++) {
+            long prev = row.get(i - 1); 
+            long curr = prev * (rowIndex - i + 1) / i;
+            row.add((int) curr);
+        }
+        return row;
+    }
+}
+
+
+746. Min Cost Climbing Stairs
+
+
+class Solution {
+    public int minCostClimbingStairs(int[] cost) {
+        int n = cost.length;
+        int prev2 = cost[0];
+        int prev1 = cost[1];
+        
+        for (int i = 2; i < n; i++) {
+            int curr = cost[i] + Math.min(prev1, prev2);
+            prev2 = prev1;
+            prev1 = curr;
+        }     
+        return Math.min(prev1, prev2);
+    }
+}
+
+
+1137. N-th Tribonacci Number
+
+
+class Solution {
+    public int tribonacci(int n) {
+        if (n == 0) return 0;
+        if (n == 1 || n == 2) return 1;
+
+        int t0 = 0, t1 = 1, t2 = 1;
+        int tn = 0;
+
+        for (int i = 3; i <= n; i++) {
+            tn = t0 + t1 + t2;
+            t0 = t1;
+            t1 = t2;
+            t2 = tn;
+        }
+        return tn;
+    }
+}
