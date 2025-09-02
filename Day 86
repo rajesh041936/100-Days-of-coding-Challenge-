@@ -1,0 +1,60 @@
+2900. Longest Unequal Adjacent Groups Subsequence I
+
+
+class Solution {
+    public List<String> getLongestSubsequence(String[] words, int[] groups) {
+        List<String> result = new ArrayList<>();
+        
+        result.add(words[0]);
+        int lastGroup = groups[0];
+                for (int i = 1; i < words.length; i++) {
+            if (groups[i] != lastGroup) {
+                result.add(words[i]);
+                lastGroup = groups[i];
+            }
+        }
+        return result;
+    }
+}
+
+
+647. Palindromic Substrings
+
+
+class Solution {
+    public int countSubstrings(String s) {
+        int n = s.length();
+        int count = 0;
+
+        for (int center = 0; center < 2 * n - 1; center++) {
+            int left = center / 2;
+            int right = left + center % 2;
+
+            while (left >= 0 && right < n && s.charAt(left) == s.charAt(right)) {
+                count++;
+                left--;
+                right++;
+            }
+        }
+        return count;
+    }
+}
+
+
+392. Is Subsequence
+
+
+class Solution {
+    public boolean isSubsequence(String s, String t) {
+        int i = 0, j = 0;
+        
+        while (i < s.length() && j < t.length()) {
+            if (s.charAt(i) == t.charAt(j)) {
+                i++;
+            }
+            j++;
+        }
+        
+        return i == s.length();
+    }
+}
