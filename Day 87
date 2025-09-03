@@ -1,0 +1,80 @@
+1043. Partition Array for Maximum Sum
+
+
+class Solution {
+    public int maxSumAfterPartitioning(int[] arr, int k) {
+        int n = arr.length;
+        int[] dp = new int[n + 1];
+        
+        for (int i = 1; i <= n; i++) {
+            int maxInPartition = 0;
+            for (int len = 1; len <= k && i - len >= 0; len++) {
+                maxInPartition = Math.max(maxInPartition, arr[i - len]);
+                dp[i] = Math.max(dp[i], dp[i - len] + maxInPartition * len);
+            }
+        }
+        return dp[n];
+    }
+}
+
+
+131. Palindrome Partitioning
+
+
+class Solution {
+    public List<List<String>> partition(String s) {
+        List<List<String>> res = new ArrayList<>();
+        backtrack(res, new ArrayList<>(), s, 0);
+        return res;
+    }
+    private void backtrack(List<List<String>> res, List<String> path, String s, int start) {
+        if (start == s.length()) {
+            res.add(new ArrayList<>(path));
+            return;
+        }
+        for (int end = start; end < s.length(); end++) {
+            if (isPalindrome(s, start, end)) {
+                path.add(s.substring(start, end + 1));
+                backtrack(res, path, s, end + 1);
+                path.remove(path.size() - 1);
+            }
+        }
+    }
+    private boolean isPalindrome(String s, int l, int r) {
+        while (l < r) {
+            if (s.charAt(l) != s.charAt(r)) return false;
+            l++;
+            r--;
+        }
+        return true;
+    }
+}
+
+
+22. Generate Parentheses
+
+
+class Solution {
+    public List<String> generateParenthesis(int n) {
+        List<String> ans = new ArrayList<>();
+        build(ans, new StringBuilder(), 0, 0, n);
+        return ans;
+    }
+
+    private void build(List<String> ans, StringBuilder cur, int open, int close, int n) {
+        if (cur.length() == 2 * n) {
+            ans.add(cur.toString());
+            return;
+        }
+        if (open < n) {
+            cur.append('(');
+            build(ans, cur, open + 1, close, n);
+            cur.deleteCharAt(cur.length() - 1);
+        }
+        if (close < open) {
+            cur.append(')');
+            build(ans, cur, open, close + 1, n);
+            cur.deleteCharAt(cur.length() - 1);
+        }
+    }
+}
