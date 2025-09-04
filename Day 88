@@ -1,0 +1,72 @@
+3192. Minimum Operations to Make Binary Array Elements Equal to One II
+
+
+class Solution {
+    public int minOperations(int[] nums) {
+        int ops = 0;
+        int flipParity = 0; 
+        
+        for (int num : nums) {
+            int effective = num ^ flipParity;
+            if (effective == 0) {
+                ops++;
+                flipParity ^= 1;
+            }
+        }
+        return ops;
+    }
+}
+
+
+3259. Maximum Energy Boost From Two Drinks
+
+
+class Solution {
+    public long maxEnergyBoost(int[] energyDrinkA, int[] energyDrinkB) {
+        int n = energyDrinkA.length;
+        long[] dpA = new long[n];
+        long[] dpB = new long[n];
+        
+        dpA[0] = energyDrinkA[0];
+        dpB[0] = energyDrinkB[0];
+        
+        if (n == 1) return Math.max(dpA[0], dpB[0]);
+        
+        dpA[1] = dpA[0] + energyDrinkA[1];
+        dpB[1] = dpB[0] + energyDrinkB[1];
+        
+        for (int i = 2; i < n; i++) {
+            dpA[i] = Math.max(dpA[i-1], dpB[i-2]) + energyDrinkA[i];
+            dpB[i] = Math.max(dpB[i-1], dpA[i-2]) + energyDrinkB[i];
+        }
+        return Math.max(dpA[n-1], dpB[n-1]);
+    }
+}
+
+
+3218. Minimum Cost for Cutting Cake I
+
+
+class Solution {
+    public int minimumCost(int m, int n, int[] horizontalCut, int[] verticalCut) {
+        List<int[]> cuts = new ArrayList<>();
+        
+        for (int h : horizontalCut) cuts.add(new int[]{h, 0});
+        for (int v : verticalCut) cuts.add(new int[]{v, 1});
+        
+        cuts.sort((a, b) -> b[0] - a[0]);   
+        int hPieces = 1, vPieces = 1;
+        int totalCost = 0;     
+        for (int[] cut : cuts) {
+            int cost = cut[0];
+            if (cut[1] == 0) { 
+                totalCost += cost * vPieces;
+                hPieces++;
+            } else { 
+                totalCost += cost * hPieces;
+                vPieces++;
+            }
+        }      
+        return totalCost;
+    }
+}
