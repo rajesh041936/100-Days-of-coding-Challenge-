@@ -1,0 +1,66 @@
+643. Maximum Average Subarray I
+
+
+public class Solution {
+    public double findMaxAverage(int[] nums, int k) {
+        int n = nums.length;
+        int sum = 0;
+        
+        for(int i = 0; i < k; i++) {
+            sum += nums[i];
+        } 
+        int maxSum = sum;
+        for(int i = k; i < n; i++) {
+            sum = sum - nums[i - k] + nums[i];
+            maxSum = Math.max(maxSum, sum);
+        }   
+        return (double) maxSum / k;
+    }
+}
+
+
+219. Contains Duplicate II
+
+
+public class Solution {
+    public boolean containsNearbyDuplicate(int[] nums, int k) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        
+        for(int i = 0; i < nums.length; i++) {
+            if(map.containsKey(nums[i]) && i - map.get(nums[i]) <= k) {
+                return true;
+            }
+            map.put(nums[i], i);
+        }
+        return false;
+    }
+}
+
+
+1652. Defuse the Bomb
+
+
+class Solution {
+    public int[] decrypt(int[] code, int k) {
+        int n = code.length;
+        int[] result = new int[n];
+        
+        if(k == 0) {
+            return result; 
+        }
+        for(int i = 0; i < n; i++) {
+            int sum = 0;
+            if(k > 0) {
+                for(int j = 1; j <= k; j++) {
+                    sum += code[(i + j) % n];
+                }
+            } else { 
+                for(int j = 1; j <= -k; j++) {
+                    sum += code[(i - j + n) % n];
+                }
+            }
+            result[i] = sum;
+        }
+        return result;
+    }
+}
