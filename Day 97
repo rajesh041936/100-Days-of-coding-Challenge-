@@ -1,0 +1,70 @@
+1248. Count Number of Nice Subarrays
+
+
+  class Solution {
+    static {
+        for (int i = 0; i < 150; i++) {
+            numberOfSubarrays(new int[] {0}, 0);
+        }
+    }
+    public static int numberOfSubarrays(int[] nums, int k) {
+        int[] map = new int[nums.length + 1];
+        map[0] = 1;
+
+        int res = 0, odd = 0;
+        for (int num : nums) {
+            odd += num & 1;
+            if (odd >= k) {
+                res += map[odd - k];
+            }
+            map[odd]++;
+        }
+        return res;
+    }
+}
+
+1004. Max Consecutive Ones III
+
+
+  class Solution {
+    public int longestOnes(int[] nums, int k) {
+        int left = 0;
+        int maxLength = 0;
+        int zeroCount = 0;
+
+        for (int right = 0; right < nums.length; right++) {
+            if (nums[right] == 0) {
+                zeroCount++;
+            }
+            while (zeroCount > k) {
+                if (nums[left] == 0) {
+                    zeroCount--;
+                }
+                left++;
+            }
+            maxLength = Math.max(maxLength, right - left + 1);
+        }
+        return maxLength;
+    }
+}
+
+
+1052. Grumpy Bookstore Owner
+
+
+  class Solution {
+    public int maxSatisfied(int[] customers, int[] grumpy, int minutes) {
+        int total = 0, extra = 0, maxExtra = 0;
+        for (int i = 0; i < customers.length; i++) {
+            if (grumpy[i] == 0) total += customers[i];
+        }
+        for (int i = 0; i < customers.length; i++) {
+            if (grumpy[i] == 1) extra += customers[i];
+            if (i >= minutes) {
+                if (grumpy[i - minutes] == 1) extra -= customers[i - minutes];
+            }
+            maxExtra = Math.max(maxExtra, extra);
+        }
+        return total + maxExtra;
+    }
+}
