@@ -1,0 +1,88 @@
+1409. Queries on a Permutation With Key
+
+
+class Solution {
+    public int[] processQueries(int[] queries, int m) {
+        int[] P = new int[m];
+        for (int i = 0; i < m; i++) {
+            P[i] = i + 1;
+        }  
+        int[] res = new int[queries.length];
+        for (int i = 0; i < queries.length; i++) {
+            int q = queries[i];
+            int idx = -1;
+            for (int j = 0; j < m; j++) {
+                if (P[j] == q) {
+                    idx = j;
+                    break;
+                }
+            }
+            res[i] = idx;
+            int temp = P[idx];
+            for (int j = idx; j > 0; j--) {
+                P[j] = P[j - 1];
+            }
+            P[0] = temp;
+        }    
+        return res;
+    }
+}
+
+673. Number of Longest Increasing Subsequence
+
+
+class Solution {
+    public int findNumberOfLIS(int[] nums) {
+        int n = nums.length;
+        int[] length = new int[n];
+        int[] count = new int[n];
+        int maxLen = 0;
+        
+        for (int i = 0; i < n; i++) {
+            length[i] = 1;
+            count[i] = 1;
+            for (int j = 0; j < i; j++) {
+                if (nums[i] > nums[j]) {
+                    if (length[j] + 1 > length[i]) {
+                        length[i] = length[j] + 1;
+                        count[i] = count[j];
+                    } else if (length[j] + 1 == length[i]) {
+                        count[i] += count[j];
+                    }
+                }
+            }
+            maxLen = Math.max(maxLen, length[i]);
+        }     
+        int result = 0;
+        for (int i = 0; i < n; i++) {
+            if (length[i] == maxLen) {
+                result += count[i];
+            }
+        }
+        return result;
+    }
+}
+
+
+1395. Count Number of Teams
+
+
+class Solution {
+    public int numTeams(int[] rating) {
+        int n = rating.length;
+        int count = 0;
+        for (int j = 0; j < n; j++) {
+            int lessLeft = 0, moreLeft = 0, lessRight = 0, moreRight = 0;
+            for (int i = 0; i < j; i++) {
+                if (rating[i] < rating[j]) lessLeft++;
+                if (rating[i] > rating[j]) moreLeft++;
+            }
+            for (int k = j + 1; k < n; k++) {
+                if (rating[k] < rating[j]) lessRight++;
+                if (rating[k] > rating[j]) moreRight++;
+            }
+            count += lessLeft * moreRight + moreLeft * lessRight;
+        }
+        return count;
+    }
+}
